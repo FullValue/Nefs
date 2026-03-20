@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nefsy</title>
+    <!-- Tailwind v4 browser compiler bypass for fixing Node 24 deadlock in development -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-nefsy-gold: #C09435;
+        --color-nefsy-gold-dark: #a37d2c;
+        --color-nefsy-dark: #1B1B1B;
+        --color-nefsy-light: #F9F9F9;
+
+        --font-serif: 'Playfair Display', serif;
+        --font-sans: 'Poppins', sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
