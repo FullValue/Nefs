@@ -157,21 +157,21 @@ const Hero = () => {
             Réservez des guides religieux certifiés pour faciliter votre Omra ou vos visites à Médine. Une plateforme basée sur la confiance, l'éthique et la bienveillance (Amānah).
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-12 sm:mb-16 w-full max-w-[260px] sm:max-w-none mx-auto">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-16 w-full max-w-[260px] sm:max-w-none mx-auto">
             {/* App Store Button */}
-            <button className="w-full sm:w-auto bg-black text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-gray-900 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+            <button className="w-full sm:w-auto bg-black text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl flex items-center justify-center gap-2 sm:gap-3 hover:bg-gray-900 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
               <svg viewBox="0 0 384 512" className="w-6 h-6 sm:w-8 sm:h-8 fill-current shrink-0"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-              <div className="text-left w-full pl-1">
-                <div className="text-[9px] sm:text-[10px] leading-none mb-1 uppercase tracking-wider text-left">Télécharger sur l'</div>
-                <div className="text-base sm:text-lg font-semibold leading-none text-left">App Store</div>
+              <div className="text-left pl-1">
+                <div className="text-[9px] sm:text-[10px] leading-none mb-1 uppercase tracking-wider">Télécharger sur l'</div>
+                <div className="text-base sm:text-lg font-semibold leading-none">App Store</div>
               </div>
             </button>
             {/* Google Play Button */}
-            <button className="w-full sm:w-auto bg-black text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-gray-900 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+            <button className="w-full sm:w-auto bg-black text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl flex items-center justify-center gap-2 sm:gap-3 hover:bg-gray-900 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
               <svg viewBox="0 0 512 512" className="w-6 h-6 sm:w-8 sm:h-8 fill-current shrink-0"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
-              <div className="text-left w-full pl-1">
-                <div className="text-[9px] sm:text-[10px] leading-none mb-1 uppercase tracking-wider text-left">Disponible sur</div>
-                <div className="text-base sm:text-lg font-semibold leading-none text-left">Google Play</div>
+              <div className="text-left pl-1">
+                <div className="text-[9px] sm:text-[10px] leading-none mb-1 uppercase tracking-wider">Disponible sur</div>
+                <div className="text-base sm:text-lg font-semibold leading-none">Google Play</div>
               </div>
             </button>
           </div>
@@ -179,7 +179,7 @@ const Hero = () => {
       </div>
 
       {/* Mockups and Floating Elements */}
-      <div className="relative w-full max-w-5xl mx-auto h-[420px] sm:h-[500px] lg:h-[550px] mt-8 lg:mt-4">
+      <div className="relative w-full max-w-5xl mx-auto h-[420px] sm:h-[500px] lg:h-[550px] mt-4 lg:mt-4">
         
         <motion.div 
           initial={{ y: 150, opacity: 0 }}
@@ -195,7 +195,7 @@ const Hero = () => {
           initial={{ y: 200, opacity: 0, x: -50 }}
           animate={{ y: 0, opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="hidden sm:block absolute left-[5%] lg:left-[10%] bottom-[-50px] w-[220px] lg:w-[260px] h-[400px] lg:h-[500px] bg-white rounded-t-[2.5rem] border-[10px] border-black shadow-xl overflow-hidden z-10 opacity-90"
+          className="absolute left-[-2%] sm:left-[5%] lg:left-[10%] bottom-[20px] sm:bottom-[-50px] w-[150px] sm:w-[220px] lg:w-[260px] h-[340px] sm:h-[400px] lg:h-[500px] bg-white rounded-t-[2rem] sm:rounded-t-[2.5rem] border-[8px] sm:border-[10px] border-black shadow-xl overflow-hidden z-10 opacity-90"
         >
           <img src="/images/screen 2.jpeg" alt="Nefsy Left Screen" className="w-full h-full object-cover" />
         </motion.div>
@@ -205,7 +205,7 @@ const Hero = () => {
           initial={{ y: 200, opacity: 0, x: 50 }}
           animate={{ y: 0, opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="hidden sm:block absolute right-[5%] lg:right-[10%] bottom-[-30px] w-[220px] lg:w-[260px] h-[400px] lg:h-[500px] bg-white rounded-t-[2.5rem] border-[10px] border-black shadow-xl overflow-hidden z-10 opacity-90"
+          className="absolute right-[-2%] sm:right-[5%] lg:right-[10%] bottom-[40px] sm:bottom-[-30px] w-[150px] sm:w-[220px] lg:w-[260px] h-[340px] sm:h-[400px] lg:h-[500px] bg-white rounded-t-[2rem] sm:rounded-t-[2.5rem] border-[8px] sm:border-[10px] border-black shadow-xl overflow-hidden z-10 opacity-90"
         >
           <img src="/images/screen 3.jpeg" alt="Nefsy Right Screen" className="w-full h-full object-cover" />
         </motion.div>
@@ -727,11 +727,11 @@ const Footer = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contac
               Vivez votre pèlerinage en toute sérénité. L'application de confiance pour vos visites et votre Omra.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.instagram.com/nefsy2026?igsh=MWFyenRwNjd3aG1pZQ==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-nefsy-gold transition-colors cursor-pointer group">
-                <Instagram size={18} className="text-white group-hover:text-white" />
+              <a href="https://www.instagram.com/nefsy2026?igsh=MWFyenRwNjd3aG1pZQ==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-12 h-12 rounded-[14px] border border-nefsy-gold/40 flex items-center justify-center text-nefsy-gold/80 hover:border-nefsy-gold hover:text-nefsy-gold transition-all cursor-pointer">
+                <Instagram size={22} className="stroke-[1.5]" />
               </a>
-              <a href="https://www.tiktok.com/@nefsy2026?_r=1&_t=ZG-94hCTpQVcfI" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-nefsy-gold transition-colors cursor-pointer group">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="text-white group-hover:text-white">
+              <a href="https://www.tiktok.com/@nefsy2026?_r=1&_t=ZG-94hCTpQVcfI" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="w-12 h-12 rounded-[14px] border border-nefsy-gold/40 flex items-center justify-center text-nefsy-gold/80 hover:border-nefsy-gold hover:text-nefsy-gold transition-all cursor-pointer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 15.68a6.34 6.34 0 0 0 6.26 6.32 6.33 6.33 0 0 0 6.31-6.32V10a8.1 8.1 0 0 0 4.79 1.54v-3.32a4.42 4.42 0 0 1-2.77-1.53z"/>
                 </svg>
               </a>
@@ -768,14 +768,14 @@ const Footer = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contac
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Nefsy. Tous droits réservés.
+        <div className="border-t border-white/10 pt-12 mt-8 flex flex-col items-center gap-6">
+          <p className="text-nefsy-gold text-2xl sm:text-3xl lg:text-4xl font-arabic tracking-wide select-none opacity-90 pb-2" dir="rtl">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
           </p>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <span>Fait avec</span>
-            <HeartHandshake size={16} className="text-nefsy-gold" />
-            <span>pour la communauté</span>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 text-xs sm:text-sm text-gray-500 uppercase tracking-widest text-center">
+            <span>© 2026 Nefsy. Tous droits réservés.</span>
+            <span className="hidden md:inline text-white/20">—</span>
+            <span>Designed by Ulycom</span>
           </div>
         </div>
       </div>
