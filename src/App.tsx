@@ -150,8 +150,8 @@ const Hero = () => {
             <Star size={16} className="fill-current" />
             <span>L'application n°1 pour votre Omra</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-medium text-nefsy-dark leading-tight mb-6 tracking-tight flex items-center justify-center gap-2 lg:gap-4 whitespace-nowrap">
-            Votre guide de confiance pour la <span className="text-nefsy-gold italic pr-1">Omra</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-medium text-nefsy-dark leading-tight mb-6 tracking-tight">
+            Votre guide de confiance pour la <span className="text-nefsy-gold italic">Omra</span>
           </h1>
           <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
             Réservez des guides religieux certifiés pour faciliter votre Omra ou vos visites à Médine. Une plateforme basée sur la confiance, l'éthique et la bienveillance (Amānah).
