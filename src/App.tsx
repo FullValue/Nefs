@@ -928,9 +928,15 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
 
               {section === 'mentions' && (
                 <div className="prose prose-nefsy max-w-none">
-                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">Mentions Légales</h1>
-                  <p className="text-gray-600 italic">Ce document est en cours de rédaction et sera disponible prochainement.</p>
-                  <p className="mt-4 text-gray-600">Pour toute information concernant l'éditeur de l'application, veuillez vous référer à l'Article 1 de nos Conditions Générales de Vente et d'Utilisation (CGVU).</p>
+                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">1. MENTIONS LÉGALES</h1>
+                  <p className="text-gray-600 mb-6 font-medium">L'application est éditée par la société SMHRJU.</p>
+                  
+                  <div className="space-y-4 text-gray-600">
+                    <p><strong>Siège social :</strong> 78 Avenue des Champs Élysées, 75008 Paris, France.</p>
+                    <p><strong>Numéro d'immatriculation :</strong> 100957091 (RCS Paris).</p>
+                    <p><strong>Contact :</strong> contact@nefsy.fr.</p>
+                    <p><strong>Propriété intellectuelle :</strong> L'ensemble des contenus (textes, logos, interfaces, vidéos) est la propriété exclusive de SMHRJU. Toute reproduction ou exploitation non autorisée est strictement interdite.</p>
+                  </div>
                 </div>
               )}
 
