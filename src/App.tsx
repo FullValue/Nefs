@@ -50,7 +50,8 @@ const Navbar = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contac
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => onNavigate && onNavigate('home')}>
-            <img src="/images/logooo.png" alt="Nefsy Logo" className="h-12 w-auto object-contain" />
+            <img src="/images/logo header ordinateur et footer.png" alt="Nefsy Logo" className="hidden md:block h-12 lg:h-14 w-auto object-contain" />
+            <img src="/images/logooo.png" alt="Nefsy Logo" className="md:hidden h-10 w-auto object-contain" />
           </div>
 
           {/* Desktop Menu */}
@@ -178,13 +179,13 @@ const Hero = () => {
       </div>
 
       {/* Mockups and Floating Elements */}
-      <div className="relative w-full max-w-5xl mx-auto h-[400px] sm:h-[500px] lg:h-[550px] mt-8 lg:mt-4">
+      <div className="relative w-full max-w-5xl mx-auto h-[420px] sm:h-[500px] lg:h-[550px] mt-8 lg:mt-4">
         
         <motion.div 
           initial={{ y: 150, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[260px] sm:w-[300px] lg:w-[340px] h-[450px] sm:h-[550px] lg:h-[600px] bg-white rounded-t-[3rem] border-[12px] border-black shadow-2xl overflow-hidden z-20"
+          className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[220px] sm:w-[300px] lg:w-[340px] h-[400px] sm:h-[550px] lg:h-[600px] bg-white rounded-t-[2.5rem] sm:rounded-t-[3rem] border-[10px] sm:border-[12px] border-black shadow-2xl overflow-hidden z-20"
         >
           <img src="/images/screen 1.jpeg" alt="Nefsy App Screen" className="w-full h-full object-cover" />
         </motion.div>
@@ -214,7 +215,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="absolute top-[15%] left-[2%] lg:left-[5%] bg-white/70 backdrop-blur-md p-3 sm:p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/60 flex items-center gap-4 z-30 transition-transform hover:scale-105"
+          className="absolute top-[10%] sm:top-[15%] left-0 sm:left-[2%] lg:left-[5%] bg-white/80 sm:bg-white/70 backdrop-blur-md p-2.5 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/60 flex items-center gap-3 sm:gap-4 z-30 transition-transform hover:scale-105 scale-90 sm:scale-100 origin-left"
         >
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-green-200 bg-green-50/50 backdrop-blur-sm flex items-center justify-center shrink-0">
             <ShieldCheck className="text-green-600 drop-shadow-sm" size={24} />
@@ -229,7 +230,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1 }}
-          className="absolute top-[5%] right-[2%] lg:right-[5%] bg-white/70 backdrop-blur-md p-3 sm:p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/60 flex items-center gap-4 z-30 transition-transform hover:scale-105"
+          className="absolute top-[25%] sm:top-[5%] right-0 sm:right-[2%] lg:right-[5%] bg-white/80 sm:bg-white/70 backdrop-blur-md p-2.5 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/60 flex items-center gap-3 sm:gap-4 z-30 transition-transform hover:scale-105 scale-90 sm:scale-100 origin-right"
         >
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-nefsy-gold/30 bg-nefsy-gold/10 backdrop-blur-sm flex items-center justify-center shrink-0">
             <Star className="text-nefsy-gold drop-shadow-sm" size={24} />
@@ -244,7 +245,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8, x: -20 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 1.2 }}
-          className="absolute bottom-[20%] left-[-2%] lg:left-[2%] bg-white/70 backdrop-blur-md p-3 sm:p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/60 flex items-center gap-4 z-30 transition-transform hover:scale-105"
+          className="absolute bottom-[25%] sm:bottom-[20%] left-[-2%] lg:left-[2%] bg-white/80 sm:bg-white/70 backdrop-blur-md p-2.5 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/60 flex items-center gap-3 sm:gap-4 z-30 transition-transform hover:scale-105 scale-90 sm:scale-100 origin-left"
         >
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-blue-200 bg-blue-50/50 backdrop-blur-sm flex items-center justify-center shrink-0">
             <Video className="text-blue-500 drop-shadow-sm" size={24} />
@@ -720,7 +721,7 @@ const Footer = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contac
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center gap-2 mb-6 cursor-pointer" onClick={(e) => handleNavClick(e as any, 'home')}>
-              <img src="/images/logooo.png" alt="Nefsy Logo" className="h-12 w-auto object-contain bg-white rounded p-1" />
+              <img src="/images/logo header ordinateur et footer.png" alt="Nefsy Logo" className="h-16 lg:h-20 w-auto object-contain bg-white rounded-lg p-2 max-w-full" />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               Vivez votre pèlerinage en toute sérénité. L'application de confiance pour vos visites et votre Omra.
@@ -826,7 +827,7 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
             <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-12">
               {section === 'cgvu' && (
                 <div className="prose prose-nefsy max-w-none">
-                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">1. CONDITIONS GÉNÉRALES DE VENTE ET D'UTILISATION (CGVU)</h1>
+                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">2. CONDITIONS GÉNÉRALES DE VENTE ET D'UTILISATION (CGVU)</h1>
                   
                   <h3 className="text-xl font-bold text-nefsy-dark mt-8 mb-4">Article 1 – Identification de la société</h3>
                   <p><strong>Raison sociale :</strong> SMHRJU</p>
@@ -906,7 +907,7 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
 
               {section === 'cancellation' && (
                 <div className="prose prose-nefsy max-w-none">
-                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">2. POLITIQUE D'ANNULATION ET DE REMBOURSEMENT</h1>
+                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">4. POLITIQUE D'ANNULATION ET DE REMBOURSEMENT</h1>
                   <p className="text-gray-600">Cette politique s'applique à toute prestation réservée via l'application. L'achat d'une prestation vaut acceptation sans réserve de ces conditions.</p>
 
                   <h3 className="text-xl font-bold text-nefsy-dark mt-8 mb-4">Délais et Frais applicables</h3>
@@ -942,10 +943,10 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
 
               {section === 'charter' && (
                 <div className="prose prose-nefsy max-w-none">
-                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">Les Chartes Éthiques</h1>
+                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">5. LES CHARTES ÉTHIQUES</h1>
                   
                   {/* CHARTE DU PÈLERIN */}
-                  <h2 className="text-2xl font-serif text-nefsy-gold mt-12 mb-6 border-b border-gray-100 pb-2">1. Charte du pèlerin</h2>
+                  <h2 className="text-2xl font-serif text-nefsy-gold mt-12 mb-6 border-b border-gray-100 pb-2">5.1. Charte du pèlerin</h2>
                   <h3 className="text-xl font-bold text-nefsy-dark mb-4">Préambule</h3>
                   <p className="text-gray-600 mb-6">
                     Cette charte a pour objectif d’établir un cadre clair, éthique et respectueux entre le pèlerin et l’organisateur, afin de garantir le bon déroulement du pèlerinage dans un esprit de sérénité, de responsabilité et de conformité aux principes religieux et organisationnels. Elle s’appuie sur des principes islamiques de responsabilité, d’honnêteté, de bienveillance et de patience.
@@ -993,7 +994,7 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
                   <p className="text-gray-600 mb-12">L’inscription et l’achat d’une prestation valent acceptation sans réserve de la présente charte.</p>
 
                   {/* RÈGLEMENT DES GUIDES RELIGIEUX */}
-                  <h2 className="text-2xl font-serif text-nefsy-gold mt-12 mb-2 border-b border-gray-100 pb-2">2. Règlement des Guides Religieux</h2>
+                  <h2 className="text-2xl font-serif text-nefsy-gold mt-12 mb-2 border-b border-gray-100 pb-2">5.2. Règlement des Guides Religieux</h2>
                   <p className="text-gray-500 italic mb-6 text-sm">Fondé sur le Coran et la Sounna authentique</p>
                   
                   <h3 className="text-xl font-bold text-nefsy-dark mb-4">Préambule</h3>
@@ -1043,7 +1044,7 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
                   <p className="text-gray-600 mb-12">En acceptant sa mission, le guide reconnaît avoir pris connaissance du présent règlement et s'engage à le respecter intégralement, en demandant l'aide d'Allah ﷻ pour honorer cette responsabilité avec droiture et sincérité.</p>
 
                   {/* CODE DE CONDUITE */}
-                  <h2 className="text-2xl font-serif text-nefsy-gold mt-12 mb-2 border-b border-gray-100 pb-2">3. Code de Conduite et Règles Opérationnelles</h2>
+                  <h2 className="text-2xl font-serif text-nefsy-gold mt-12 mb-2 border-b border-gray-100 pb-2">5.3. Code de Conduite et Règles Opérationnelles</h2>
                   <p className="text-gray-500 italic mb-6 text-sm">Applicable à toutes les prestations de guidage</p>
 
                   <h3 className="text-lg font-bold text-nefsy-dark mb-3">Article 1 – Respect du cadre professionnel</h3>
