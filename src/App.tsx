@@ -480,7 +480,7 @@ const Trust = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contact
             </div>
 
             <a 
-              href="?page=legal&section=charter"
+              href="/chartesethiques"
               onClick={(e) => {
                 if (onNavigate) {
                   e.preventDefault();
@@ -749,20 +749,20 @@ const Footer = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contac
           <div>
             <h4 className="text-white font-bold mb-6">Entreprise</h4>
             <ul className="space-y-4 text-sm text-gray-400">
-              <li><a href="?page=home" onClick={(e) => handleNavClick(e, 'home')} className="hover:text-nefsy-gold transition-colors text-left block">À propos</a></li>
-              <li><a href="?page=legal&section=charter" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'charter'); }} className="hover:text-nefsy-gold transition-colors text-left block">Notre Charte Éthique</a></li>
-              <li><a href="?page=contact" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('contact'); }} className="hover:text-nefsy-gold transition-colors text-left block">Contact</a></li>
+              <li><a href="/" onClick={(e) => handleNavClick(e, 'home')} className="hover:text-nefsy-gold transition-colors text-left block">À propos</a></li>
+              <li><a href="/chartesethiques" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'charter'); }} className="hover:text-nefsy-gold transition-colors text-left block">Notre Charte Éthique</a></li>
+              <li><a href="/contact" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('contact'); }} className="hover:text-nefsy-gold transition-colors text-left block">Contact</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-white font-bold mb-6">Légal</h4>
             <ul className="space-y-4 text-sm text-gray-400 flex flex-col items-start">
-              <li><a href="?page=legal&section=cgvu" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'cgvu'); }} className="hover:text-nefsy-gold transition-colors text-left">Conditions Générales</a></li>
-              <li><a href="?page=legal&section=privacy" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'privacy'); }} className="hover:text-nefsy-gold transition-colors text-left">Politique de Confidentialité</a></li>
-              <li><a href="?page=legal&section=cancellation" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'cancellation'); }} className="hover:text-nefsy-gold transition-colors text-left">Politique d'Annulation</a></li>
-              <li><a href="?page=legal&section=mentions" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'mentions'); }} className="hover:text-nefsy-gold transition-colors text-left">Mentions Légales</a></li>
-              <li><a href="?page=legal&section=charter" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'charter'); }} className="hover:text-nefsy-gold transition-colors text-left">Chartes Éthiques</a></li>
+              <li><a href="/CGVU" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'cgvu'); }} className="hover:text-nefsy-gold transition-colors text-left">Conditions Générales</a></li>
+              <li><a href="/politiquedeconfidentialite" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'privacy'); }} className="hover:text-nefsy-gold transition-colors text-left">Politique de Confidentialité</a></li>
+              <li><a href="/politiquedannulation" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'cancellation'); }} className="hover:text-nefsy-gold transition-colors text-left">Politique d'Annulation</a></li>
+              <li><a href="/mentionslegales" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'mentions'); }} className="hover:text-nefsy-gold transition-colors text-left">Mentions Légales</a></li>
+              <li><a href="/chartesethiques" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'charter'); }} className="hover:text-nefsy-gold transition-colors text-left">Chartes Éthiques</a></li>
             </ul>
           </div>
         </div>
@@ -784,11 +784,11 @@ const Footer = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contac
 
 const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page: 'home' | 'legal' | 'contact', section?: string) => void }) => {
   const sections = [
-    { id: 'cgvu', title: 'Conditions Générales' },
-    { id: 'privacy', title: 'Politique de Confidentialité' },
-    { id: 'cancellation', title: "Politique d'Annulation" },
-    { id: 'mentions', title: 'Mentions Légales' },
-    { id: 'charter', title: 'Chartes Éthiques' }
+    { id: 'cgvu', title: 'Conditions Générales', path: '/CGVU' },
+    { id: 'privacy', title: 'Politique de Confidentialité', path: '/politiquedeconfidentialite' },
+    { id: 'cancellation', title: "Politique d'Annulation", path: '/politiquedannulation' },
+    { id: 'mentions', title: 'Mentions Légales', path: '/mentionslegales' },
+    { id: 'charter', title: 'Chartes Éthiques', path: '/chartesethiques' }
   ];
 
   return (
@@ -803,7 +803,7 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
                 {sections.map(s => (
                   <a
                     key={s.id}
-                    href={`?page=legal&section=${s.id}`}
+                    href={s.path}
                     onClick={(e) => {
                       e.preventDefault();
                       onNavigate('legal', s.id);
@@ -1117,18 +1117,41 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
   );
 };
 
+const getRouteState = (pathname: string): { page: 'home' | 'legal' | 'contact', section?: string } => {
+  const path = decodeURIComponent(pathname).toLowerCase();
+  
+  if (path === '/contact') return { page: 'contact' };
+  if (path === '/cgvu') return { page: 'legal', section: 'cgvu' };
+  if (path === '/politiquedeconfidentialite' || path === '/politiquedeconfidentialité') return { page: 'legal', section: 'privacy' };
+  if (path === '/politiquedannulation' || path === '/politiqued\'annulation') return { page: 'legal', section: 'cancellation' };
+  if (path === '/mentionslegales' || path === '/mentions-legales') return { page: 'legal', section: 'mentions' };
+  if (path === '/chartesethiques' || path === '/chartes-ethiques') return { page: 'legal', section: 'charter' };
+  
+  return { page: 'home' };
+};
+
+const getPathFromState = (page: string, section?: string) => {
+  if (page === 'contact') return '/contact';
+  if (page === 'legal') {
+    if (section === 'cgvu') return '/CGVU';
+    if (section === 'privacy') return '/politiquedeconfidentialite';
+    if (section === 'cancellation') return '/politiquedannulation';
+    if (section === 'mentions') return '/mentionslegales';
+    if (section === 'charter') return '/chartesethiques';
+  }
+  return '/';
+};
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'legal' | 'contact'>('home');
   const [legalSection, setLegalSection] = useState<string>('cgvu');
 
   useEffect(() => {
     const handlePopState = () => {
-      const params = new URLSearchParams(window.location.search);
-      const page = (params.get('page') || 'home') as 'home' | 'legal' | 'contact';
-      const section = params.get('section');
-      setCurrentPage(page);
-      if (page === 'legal' && section) {
-        setLegalSection(section);
+      const state = getRouteState(window.location.pathname);
+      setCurrentPage(state.page);
+      if (state.page === 'legal' && state.section) {
+        setLegalSection(state.section);
       }
     };
 
@@ -1141,9 +1164,10 @@ export default function App() {
     setCurrentPage(page);
     if (page === 'legal' && section) {
       setLegalSection(section);
-      window.history.pushState({}, '', `?page=${page}&section=${section}`);
-    } else {
-      window.history.pushState({}, '', `?page=${page}`);
+    }
+    const path = getPathFromState(page, section);
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
     }
     window.scrollTo(0, 0);
   };
