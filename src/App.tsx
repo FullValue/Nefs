@@ -12,8 +12,7 @@ import {
   Compass,
   Instagram
 } from 'lucide-react';
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 // --- Components ---
 
 const IslamicFiligree = ({ className }: { className?: string }) => (
@@ -480,12 +479,18 @@ const Trust = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contact
               ))}
             </div>
 
-            <button 
-              onClick={() => onNavigate && onNavigate('legal', 'charter')}
-              className="bg-nefsy-gold hover:bg-nefsy-gold-dark text-white px-8 py-4 rounded-full font-medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            <a 
+              href="?page=legal&section=charter"
+              onClick={(e) => {
+                if (onNavigate) {
+                  e.preventDefault();
+                  onNavigate('legal', 'charter');
+                }
+              }}
+              className="inline-block bg-nefsy-gold hover:bg-nefsy-gold-dark text-white px-8 py-4 rounded-full font-medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-center"
             >
               Découvrir notre charte éthique
-            </button>
+            </a>
           </motion.div>
 
           <motion.div
@@ -744,20 +749,20 @@ const Footer = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contac
           <div>
             <h4 className="text-white font-bold mb-6">Entreprise</h4>
             <ul className="space-y-4 text-sm text-gray-400">
-              <li><a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="hover:text-nefsy-gold transition-colors text-left block">À propos</a></li>
-              <li><button onClick={() => onNavigate && onNavigate('legal', 'charter')} className="hover:text-nefsy-gold transition-colors text-left block">Notre Charte Éthique</button></li>
-              <li><button onClick={() => onNavigate && onNavigate('contact')} className="hover:text-nefsy-gold transition-colors text-left block">Contact</button></li>
+              <li><a href="?page=home" onClick={(e) => handleNavClick(e, 'home')} className="hover:text-nefsy-gold transition-colors text-left block">À propos</a></li>
+              <li><a href="?page=legal&section=charter" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'charter'); }} className="hover:text-nefsy-gold transition-colors text-left block">Notre Charte Éthique</a></li>
+              <li><a href="?page=contact" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('contact'); }} className="hover:text-nefsy-gold transition-colors text-left block">Contact</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-white font-bold mb-6">Légal</h4>
             <ul className="space-y-4 text-sm text-gray-400 flex flex-col items-start">
-              <li><button onClick={() => onNavigate && onNavigate('legal', 'cgvu')} className="hover:text-nefsy-gold transition-colors text-left">Conditions Générales</button></li>
-              <li><button onClick={() => onNavigate && onNavigate('legal', 'privacy')} className="hover:text-nefsy-gold transition-colors text-left">Politique de Confidentialité</button></li>
-              <li><button onClick={() => onNavigate && onNavigate('legal', 'cancellation')} className="hover:text-nefsy-gold transition-colors text-left">Politique d'Annulation</button></li>
-              <li><button onClick={() => onNavigate && onNavigate('legal', 'mentions')} className="hover:text-nefsy-gold transition-colors text-left">Mentions Légales</button></li>
-              <li><button onClick={() => onNavigate && onNavigate('legal', 'charter')} className="hover:text-nefsy-gold transition-colors text-left">Chartes Éthiques</button></li>
+              <li><a href="?page=legal&section=cgvu" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'cgvu'); }} className="hover:text-nefsy-gold transition-colors text-left">Conditions Générales</a></li>
+              <li><a href="?page=legal&section=privacy" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'privacy'); }} className="hover:text-nefsy-gold transition-colors text-left">Politique de Confidentialité</a></li>
+              <li><a href="?page=legal&section=cancellation" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'cancellation'); }} className="hover:text-nefsy-gold transition-colors text-left">Politique d'Annulation</a></li>
+              <li><a href="?page=legal&section=mentions" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'mentions'); }} className="hover:text-nefsy-gold transition-colors text-left">Mentions Légales</a></li>
+              <li><a href="?page=legal&section=charter" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'charter'); }} className="hover:text-nefsy-gold transition-colors text-left">Chartes Éthiques</a></li>
             </ul>
           </div>
         </div>
@@ -777,7 +782,7 @@ const Footer = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contac
   );
 };
 
-const LegalPage = ({ section, setSection }: { section: string, setSection: (s: string) => void }) => {
+const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page: 'home' | 'legal' | 'contact', section?: string) => void }) => {
   const sections = [
     { id: 'cgvu', title: 'Conditions Générales' },
     { id: 'privacy', title: 'Politique de Confidentialité' },
@@ -796,9 +801,13 @@ const LegalPage = ({ section, setSection }: { section: string, setSection: (s: s
               <h3 className="font-serif text-xl text-nefsy-dark mb-6">Documents Légaux</h3>
               <nav className="space-y-2">
                 {sections.map(s => (
-                  <button
+                  <a
                     key={s.id}
-                    onClick={() => setSection(s.id)}
+                    href={`?page=legal&section=${s.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigate('legal', s.id);
+                    }}
                     className={`block w-full text-left px-4 py-3 rounded-xl transition-colors text-sm font-medium ${
                       section === s.id 
                         ? 'bg-nefsy-gold/10 text-nefsy-gold' 
@@ -806,7 +815,7 @@ const LegalPage = ({ section, setSection }: { section: string, setSection: (s: s
                     }`}
                   >
                     {s.title}
-                  </button>
+                  </a>
                 ))}
               </nav>
             </div>
@@ -1112,10 +1121,29 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'legal' | 'contact'>('home');
   const [legalSection, setLegalSection] = useState<string>('cgvu');
 
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const page = (params.get('page') || 'home') as 'home' | 'legal' | 'contact';
+      const section = params.get('section');
+      setCurrentPage(page);
+      if (page === 'legal' && section) {
+        setLegalSection(section);
+      }
+    };
+
+    handlePopState();
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const handleNavigation = (page: 'home' | 'legal' | 'contact', section?: string) => {
     setCurrentPage(page);
     if (page === 'legal' && section) {
       setLegalSection(section);
+      window.history.pushState({}, '', `?page=${page}&section=${section}`);
+    } else {
+      window.history.pushState({}, '', `?page=${page}`);
     }
     window.scrollTo(0, 0);
   };
@@ -1134,7 +1162,7 @@ export default function App() {
           </>
         )}
         {currentPage === 'legal' && (
-          <LegalPage section={legalSection} setSection={setLegalSection} />
+          <LegalPage section={legalSection} onNavigate={handleNavigation} />
         )}
         {currentPage === 'contact' && (
           <ContactPage />
