@@ -762,6 +762,7 @@ const Footer = ({ onNavigate }: { onNavigate?: (page: 'home' | 'legal' | 'contac
               <li><a href="/mentionslegales" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'mentions'); }} className="hover:text-nefsy-gold transition-colors text-left">Mentions Légales</a></li>
               <li><a href="/CGVU" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'cgvu'); }} className="hover:text-nefsy-gold transition-colors text-left">Conditions Générales</a></li>
               <li><a href="/politiquedeconfidentialite" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'privacy'); }} className="hover:text-nefsy-gold transition-colors text-left">Politique de Confidentialité</a></li>
+              <li><a href="/delete-account" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'delete-account'); }} className="hover:text-nefsy-gold transition-colors text-left">Suppression de Compte</a></li>
               <li><a href="/politiquedannulation" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'cancellation'); }} className="hover:text-nefsy-gold transition-colors text-left">Politique d'Annulation</a></li>
               <li><a href="/chartesethiques" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('legal', 'charter'); }} className="hover:text-nefsy-gold transition-colors text-left">Chartes Éthiques</a></li>
             </ul>
@@ -788,6 +789,7 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
     { id: 'mentions', title: 'Mentions Légales', path: '/mentionslegales' },
     { id: 'cgvu', title: 'Conditions Générales', path: '/CGVU' },
     { id: 'privacy', title: 'Politique de Confidentialité', path: '/politiquedeconfidentialite' },
+    { id: 'delete-account', title: 'Suppression de Compte', path: '/delete-account' },
     { id: 'cancellation', title: "Politique d'Annulation", path: '/politiquedannulation' },
     { id: 'charter', title: 'Chartes Éthiques', path: '/chartesethiques' }
   ];
@@ -902,6 +904,35 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
 
                   <h3 className="text-xl font-bold text-nefsy-dark mt-8 mb-4">Responsabilité du Compte</h3>
                   <p className="text-gray-600">L'utilisateur est seul responsable de la confidentialité de ses identifiants. Toute substitution, prêt ou partage de compte est une violation grave de l'engagement de confiance (Amānah).</p>
+                </div>
+              )}
+
+              {section === 'delete-account' && (
+                <div className="prose prose-nefsy max-w-none">
+                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">6. DEMANDE DE SUPPRESSION DE COMPTE</h1>
+
+                  <h3 className="text-xl font-bold text-nefsy-dark mt-8 mb-4">Demande de suppression de compte Nefsy</h3>
+                  <p className="text-gray-600">Conformément aux règles de Google Play, vous pouvez demander la suppression de votre compte Nefsy et des données associées.</p>
+
+                  <h3 className="text-xl font-bold text-nefsy-dark mt-8 mb-4">Option 1 : Page dédiée sur votre site (Recommandé)</h3>
+                  <ul className="list-disc pl-5 space-y-4 text-gray-600">
+                    <li><strong>Nom de l'application :</strong> Demande de suppression de compte Nefsy.</li>
+                    <li><strong>Procédure :</strong> Pour supprimer votre compte, veuillez remplir le formulaire ci-dessous ou nous contacter à <a href="mailto:support@nefsy.app">support@nefsy.app</a>.</li>
+                    <li><strong>Données supprimées :</strong> La suppression de votre compte entraînera l'effacement définitif de votre profil, de vos préférences de recherche et de votre historique de messagerie.</li>
+                    <li><strong>Données conservées :</strong> Conformément aux obligations légales, les preuves de transactions financières et les preuves vidéo des prestations Omra Badal sont conservées pendant 2 ans à des fins d'audit et de litige.</li>
+                  </ul>
+
+                  <h3 className="text-xl font-bold text-nefsy-dark mt-8 mb-4">Modèle de texte à copier/coller</h3>
+                  <div className="bg-nefsy-light/50 p-6 rounded-2xl border border-gray-100">
+                    <p className="font-semibold text-nefsy-dark">Demande de suppression de compte - Nefsy</p>
+                    <p className="text-gray-600 mt-3">Conformément aux règles de Google Play, vous pouvez demander la suppression de votre compte Nefsy et des données associées.</p>
+                    <p className="text-gray-600 mt-3"><strong>Procédure :</strong> Envoyez un email à <a href="mailto:support@nefsy.app">support@nefsy.app</a> avec pour objet "Suppression de compte" en précisant l'adresse email utilisée lors de votre inscription. Votre demande sera traitée sous 7 jours ouvrés.</p>
+                    <p className="text-gray-600 mt-3"><strong>Traitement des données :</strong></p>
+                    <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-600">
+                      <li><strong>Données supprimées :</strong> Nom, prénom, email, numéro de téléphone, photo de profil, messages privés.</li>
+                      <li><strong>Données conservées :</strong> Historique des transactions financières et documents relatifs aux prestations effectuées (pour des raisons de conformité fiscale et de preuve de service religieux pendant une durée de 2 ans).</li>
+                    </ul>
+                  </div>
                 </div>
               )}
 
@@ -1130,6 +1161,7 @@ const getRouteState = (pathname: string): { page: 'home' | 'legal' | 'contact', 
   if (path === '/contact') return { page: 'contact' };
   if (path === '/cgvu') return { page: 'legal', section: 'cgvu' };
   if (path === '/politiquedeconfidentialite' || path === '/politiquedeconfidentialité') return { page: 'legal', section: 'privacy' };
+  if (path === '/delete-account' || path === '/deleteaccount' || path === '/suppressioncompte' || path === '/suppression-de-compte') return { page: 'legal', section: 'delete-account' };
   if (path === '/politiquedannulation' || path === '/politiqued\'annulation') return { page: 'legal', section: 'cancellation' };
   if (path === '/mentionslegales' || path === '/mentions-legales') return { page: 'legal', section: 'mentions' };
   if (path === '/chartesethiques' || path === '/chartes-ethiques') return { page: 'legal', section: 'charter' };
@@ -1142,6 +1174,7 @@ const getPathFromState = (page: string, section?: string) => {
   if (page === 'legal') {
     if (section === 'cgvu') return '/CGVU';
     if (section === 'privacy') return '/politiquedeconfidentialite';
+    if (section === 'delete-account') return '/delete-account';
     if (section === 'cancellation') return '/politiquedannulation';
     if (section === 'mentions') return '/mentionslegales';
     if (section === 'charter') return '/chartesethiques';
