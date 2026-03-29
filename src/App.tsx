@@ -909,30 +909,46 @@ const LegalPage = ({ section, onNavigate }: { section: string, onNavigate: (page
 
               {section === 'delete-account' && (
                 <div className="prose prose-nefsy max-w-none">
-                  <h1 className="text-3xl font-serif text-nefsy-dark mb-8">6. DEMANDE DE SUPPRESSION DE COMPTE</h1>
+                  <h1 className="text-3xl font-serif text-nefsy-dark mb-6">6. DEMANDE DE SUPPRESSION DE COMPTE</h1>
+                  <p className="text-gray-600 mb-4">Utilisez ce formulaire pour demander la suppression de votre compte Nefsy et de vos données associées.</p>
+                  <p className="text-gray-600 mb-8">Vous pouvez aussi nous contacter directement à <a href="mailto:support@nefsy.app">support@nefsy.app</a>. Délai de traitement : 7 jours ouvrés.</p>
 
-                  <h3 className="text-xl font-bold text-nefsy-dark mt-8 mb-4">Demande de suppression de compte Nefsy</h3>
-                  <p className="text-gray-600">Conformément aux règles de Google Play, vous pouvez demander la suppression de votre compte Nefsy et des données associées.</p>
+                  <form className="space-y-6 bg-white rounded-2xl border border-gray-100 p-6 md:p-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
+                        <input type="text" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-nefsy-gold focus:border-transparent outline-none transition-all" placeholder="Votre prénom" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Nom</label>
+                        <input type="text" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-nefsy-gold focus:border-transparent outline-none transition-all" placeholder="Votre nom" />
+                      </div>
+                    </div>
 
-                  <h3 className="text-xl font-bold text-nefsy-dark mt-8 mb-4">Option 1 : Page dédiée sur votre site (Recommandé)</h3>
-                  <ul className="list-disc pl-5 space-y-4 text-gray-600">
-                    <li><strong>Nom de l'application :</strong> Demande de suppression de compte Nefsy.</li>
-                    <li><strong>Procédure :</strong> Pour supprimer votre compte, veuillez remplir le formulaire ci-dessous ou nous contacter à <a href="mailto:support@nefsy.app">support@nefsy.app</a>.</li>
-                    <li><strong>Données supprimées :</strong> La suppression de votre compte entraînera l'effacement définitif de votre profil, de vos préférences de recherche et de votre historique de messagerie.</li>
-                    <li><strong>Données conservées :</strong> Conformément aux obligations légales, les preuves de transactions financières et les preuves vidéo des prestations Omra Badal sont conservées pendant 2 ans à des fins d'audit et de litige.</li>
-                  </ul>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Email du compte Nefsy</label>
+                      <input type="email" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-nefsy-gold focus:border-transparent outline-none transition-all" placeholder="votre@email.com" />
+                    </div>
 
-                  <h3 className="text-xl font-bold text-nefsy-dark mt-8 mb-4">Modèle de texte à copier/coller</h3>
-                  <div className="bg-nefsy-light/50 p-6 rounded-2xl border border-gray-100">
-                    <p className="font-semibold text-nefsy-dark">Demande de suppression de compte - Nefsy</p>
-                    <p className="text-gray-600 mt-3">Conformément aux règles de Google Play, vous pouvez demander la suppression de votre compte Nefsy et des données associées.</p>
-                    <p className="text-gray-600 mt-3"><strong>Procédure :</strong> Envoyez un email à <a href="mailto:support@nefsy.app">support@nefsy.app</a> avec pour objet "Suppression de compte" en précisant l'adresse email utilisée lors de votre inscription. Votre demande sera traitée sous 7 jours ouvrés.</p>
-                    <p className="text-gray-600 mt-3"><strong>Traitement des données :</strong></p>
-                    <ul className="list-disc pl-5 mt-2 space-y-2 text-gray-600">
-                      <li><strong>Données supprimées :</strong> Nom, prénom, email, numéro de téléphone, photo de profil, messages privés.</li>
-                      <li><strong>Données conservées :</strong> Historique des transactions financières et documents relatifs aux prestations effectuées (pour des raisons de conformité fiscale et de preuve de service religieux pendant une durée de 2 ans).</li>
-                    </ul>
-                  </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Type de compte</label>
+                      <select className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-nefsy-gold focus:border-transparent outline-none transition-all bg-white">
+                        <option value="">Sélectionnez un type de compte</option>
+                        <option value="pelerin">Pèlerin</option>
+                        <option value="guide">Guide</option>
+                        <option value="autre">Autre</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                      <textarea rows={5} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-nefsy-gold focus:border-transparent outline-none transition-all resize-none" placeholder="Précisez votre demande de suppression de compte."></textarea>
+                    </div>
+
+                    <button type="button" className="w-full bg-nefsy-gold hover:bg-nefsy-gold-dark text-white font-medium py-3 rounded-xl transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                      Envoyer la demande de suppression
+                    </button>
+                  </form>
                 </div>
               )}
 
