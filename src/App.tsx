@@ -432,99 +432,43 @@ const Services = () => {
 };
 
 const MediaShowcase = () => {
-  const mediaItems = [
-    {
-      type: 'image' as const,
-      title: 'Omra accompagnee',
-      description: 'Ajoutez ici vos photos de l experience sur place.',
-      src: '/images/omra.jpg'
-    },
-    {
-      type: 'image' as const,
-      title: 'Visite de Makkah',
-      description: 'Une carte photo large pour mettre en valeur vos souvenirs.',
-      src: '/images/visite mekka.jpg'
-    },
-    {
-      type: 'image' as const,
-      title: 'Visite de Medine',
-      description: 'Le defilement horizontal fonctionne aussi bien sur mobile.',
-      src: '/images/visites medine.jpg'
-    },
-    {
-      type: 'video' as const,
-      title: 'Video de preuve',
-      description: 'Remplacez cette carte par votre propre fichier video.',
-      src: ''
-    },
-    {
-      type: 'image' as const,
-      title: 'Masjid Nabawi',
-      description: 'Les cartes peuvent melanger photos et videos dans la meme section.',
-      src: '/images/masjid nabawi.jpg'
-    }
+  const photos = [
+    '/images/WhatsApp Image 2026-04-10 at 17.31.16 (1).jpeg',
+    '/images/WhatsApp Image 2026-04-14 at 14.24.18 (1).jpeg',
+    '/images/WhatsApp Image 2026-04-14 at 14.24.18.jpeg',
+    '/images/WhatsApp Image 2026-04-14 at 14.24.20.jpeg',
+    '/images/WhatsApp Image 2026-04-19 at 00.20.32 (1).jpeg',
+    '/images/WhatsApp Image 2026-04-19 at 00.21.52 (1).jpeg',
   ];
 
+  const loop = [...photos, ...photos];
+
   return (
-    <section className="py-24 bg-nefsy-light/60 relative overflow-hidden">
-      <IslamicFiligree className="absolute top-1/2 -left-32 w-[420px] h-[420px] text-nefsy-gold opacity-[0.12] -translate-y-1/2 pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-2xl mb-10">
-          <h2 className="text-3xl md:text-4xl font-serif text-nefsy-dark mb-4">Galerie defilante</h2>
-          <p className="text-gray-600">
-            Une section horizontale pour presenter librement vos photos et vos videos sans changer le reste de la page.
-          </p>
-        </div>
-
-        <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 pr-4">
-          {mediaItems.map((item, index) => (
-            <motion.article
-              key={`${item.title}-${index}`}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="snap-start shrink-0 w-[85vw] sm:w-[440px] lg:w-[500px] rounded-[2rem] overflow-hidden bg-white border border-gray-100 shadow-lg"
+    <section className="py-16 sm:py-20 lg:py-24 bg-white relative overflow-hidden">
+      <div className="relative">
+        <motion.div
+          className="flex gap-5 sm:gap-6 w-max"
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+        >
+          {loop.map((src, i) => (
+            <div
+              key={i}
+              className="shrink-0 w-[200px] sm:w-[280px] lg:w-[340px] aspect-[3/4] rounded-3xl overflow-hidden shadow-lg bg-gray-100"
             >
-              <div className="relative h-[280px] sm:h-[320px] bg-nefsy-dark">
-                {item.type === 'video' && item.src ? (
-                  <video
-                    src={item.src}
-                    controls
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                ) : item.type === 'image' ? (
-                  <img
-                    src={item.src}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center gap-4 bg-[radial-gradient(circle_at_top,#c09435_0%,#8a6825_28%,#1b1b1b_75%)] text-white text-center px-8">
-                    <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                      <Video size={28} />
-                    </div>
-                    <div>
-                      <p className="text-lg font-semibold">Ajoutez votre video</p>
-                      <p className="text-sm text-white/75">Remplacez `src` dans `mediaItems` pour afficher votre contenu.</p>
-                    </div>
-                  </div>
-                )}
-
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 text-nefsy-dark text-xs font-medium shadow-sm">
-                  {item.type === 'video' ? 'Video' : 'Photo'}
-                </div>
-              </div>
-
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-nefsy-dark mb-2">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.description}</p>
-              </div>
-            </motion.article>
+              <img
+                src={src}
+                alt=""
+                className="w-full h-full object-cover select-none"
+                loading="lazy"
+                draggable={false}
+              />
+            </div>
           ))}
-        </div>
+        </motion.div>
+
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-40 lg:w-64 bg-gradient-to-r from-white via-white/85 to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-40 lg:w-64 bg-gradient-to-l from-white via-white/85 to-transparent z-10" />
       </div>
     </section>
   );
