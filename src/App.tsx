@@ -433,12 +433,11 @@ const Services = () => {
 
 const MediaShowcase = () => {
   const photos = [
-    '/images/WhatsApp Image 2026-04-10 at 17.31.16 (1).jpeg',
-    '/images/WhatsApp Image 2026-04-14 at 14.24.18 (1).jpeg',
-    '/images/WhatsApp Image 2026-04-14 at 14.24.18.jpeg',
-    '/images/WhatsApp Image 2026-04-14 at 14.24.20.jpeg',
-    '/images/WhatsApp Image 2026-04-19 at 00.20.32 (1).jpeg',
-    '/images/WhatsApp Image 2026-04-19 at 00.21.52 (1).jpeg',
+    '/images/1.jpeg',
+    '/images/2.jpeg',
+    '/images/3.jpeg',
+    '/images/4.jpeg',
+    '/images/5.jpeg',
   ];
 
   const loop = [...photos, ...photos];
