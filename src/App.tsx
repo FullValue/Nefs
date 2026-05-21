@@ -453,7 +453,7 @@ const MediaShowcase = () => {
           {loop.map((src, i) => (
             <div
               key={i}
-              className="shrink-0 w-[200px] sm:w-[280px] lg:w-[340px] aspect-[3/4] rounded-3xl overflow-hidden shadow-lg bg-gray-100"
+              className="shrink-0 w-[280px] sm:w-[300px] lg:w-[340px] aspect-[3/4] rounded-3xl overflow-hidden shadow-lg bg-gray-100"
             >
               <img
                 src={src}
