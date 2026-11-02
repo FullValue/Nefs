@@ -1,0 +1,124 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import HeroOriginal from '../components/HeroOriginal.astro';
+import PhotoMarquee from '../components/PhotoMarquee.astro';
+import StoreButtons from '../components/StoreButtons.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SERVICES, FAQ_GLOBAL, SITE } from '../data/site';
+import { CONTENT } from '../data/services';
+import hero from '../assets/omra-badal.jpg';
+import guides from '../assets/guides-nefsy.jpeg';
+import app1 from '../assets/app-1.jpeg';
+import app2 from '../assets/app-2.jpeg';
+import app3 from '../assets/app-3.jpeg';
+import g1 from '../assets/galerie-1.jpeg';
+import g2 from '../assets/galerie-2.jpeg';
+import g4 from '../assets/galerie-4.jpeg';
+import g5 from '../assets/galerie-5.jpeg';
+
+const posts = (await getCollection('blog', (p) => !p.data.draft)).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
+const faq = FAQ_GLOBAL.slice(0, 5);
+const gallery = [g1, g2, g4, g5];
+---
+<Base
+  title="Nefsy | Guides religieux pour votre Omra à La Mecque et Médine"
+  description="Réservez un guide religieux pour votre Omra, une Omra Badal ou une visite guidée de La Mecque et de Médine avec l'application Nefsy."
+  image={guides}
+>
+  <HeroOriginal />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="center reveal"><p class="eyebrow">Nos prestations</p><h2>Cinq façons de vous accompagner</h2><p class="lead">De la Omra à la visite des lieux saints, chaque prestation a sa page détaillée.</p></div>
+      <div class="grid grid--3" style="margin-top:3rem">
+        {SERVICES.map((s) => {
+          const c = CONTENT[s.key];
+          return (
+            <a class="card reveal" href={s.path}>
+              <div class="card__img"><Image src={c.splitImg} alt={c.splitAlt} widths={[400, 700]} sizes="(min-width:980px) 380px, 100vw" /></div>
+              <div class="card__body"><h3>{s.title}</h3><p>{s.short}</p><span class="card__more">Découvrir →</span></div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand pattern">
+    <div class="wrap">
+      <div class="center reveal"><p class="eyebrow">Comment ça marche</p><h2>Trois étapes dans l'application</h2></div>
+      <ol class="steps steps--row" style="margin-top:3rem">
+        <li class="reveal"><h3>Choisissez votre prestation</h3><p>Omra, Omra Badal, visite de La Mecque, de Médine ou du Masjid Nabawi.</p></li>
+        <li class="reveal"><h3>Sélectionnez un guide</h3><p>Parcourez les guides disponibles et réservez celui qui vous convient.</p></li>
+        <li class="reveal"><h3>Réservez et échangez</h3><p>Paiement en ligne sécurisé, puis messagerie directe pour convenir du rendez-vous.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="split__img reveal"><Image src={guides} alt="Deux guides Nefsy en gilet devant la Kaaba" widths={[500, 900]} sizes="(min-width:900px) 560px, 100vw" /></div>
+      <div class="reveal">
+        <p class="eyebrow">Confiance</p>
+        <h2>Une relation fondée sur l'<em style="color:var(--gold-deep)">amānah</em></h2>
+        <p class="lead" style="color:var(--muted)">Chaque guide s'engage par écrit à respecter un cadre éthique et religieux précis.</p>
+        <ul class="ticks">
+          <li>Un règlement des guides fondé sur le Coran et la Sounna authentique</li>
+          <li>Un guide identifiable : port du gilet officiel Nefsy</li>
+          <li>Interdiction du prêt de compte et du détournement de clientèle</li>
+          <li>Prise en charge à l'hôtel (moins de 500 m du Haram) et pour les personnes à mobilité réduite</li>
+          <li>Une politique d'annulation claire, publiée en toutes lettres</li>
+        </ul>
+        <div class="actions"><a class="btn btn--dark" href="/chartesethiques">Lire les chartes éthiques</a><a class="btn btn--ghost" href="/a-propos">À propos de Nefsy</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="wrap split split--rev">
+      <div class="reveal" style="display:flex;gap:1rem;justify-content:center;align-items:flex-end">
+        <div class="split__img" style="width:32%"><Image src={app2} alt="Écran de l'application Nefsy" widths={[240]} sizes="160px" style="aspect-ratio:9/19;object-fit:cover" /></div>
+        <div class="split__img" style="width:38%"><Image src={app1} alt="Écran d'accueil de l'application Nefsy" widths={[300]} sizes="200px" style="aspect-ratio:9/19;object-fit:cover" /></div>
+        <div class="split__img" style="width:32%"><Image src={app3} alt="Écran de réservation de l'application Nefsy" widths={[240]} sizes="160px" style="aspect-ratio:9/19;object-fit:cover" /></div>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">L'application</p>
+        <h2>Tout se réserve dans Nefsy</h2>
+        <p class="lead">Réservation, paiement en ligne, messagerie avec votre guide et réception des vidéos de Omra Badal : l'essentiel est dans votre poche.</p>
+        <StoreButtons />
+      </div>
+    </div>
+  </section>
+
+  <PhotoMarquee />
+
+  {posts.length > 0 && (
+    <section class="section section--sand">
+      <div class="wrap">
+        <div class="center reveal"><p class="eyebrow">Blog</p><h2>Préparer et comprendre</h2></div>
+        <div class="grid grid--3" style="margin-top:3rem">
+          {posts.map((p) => (
+            <a class="card reveal" href={`/blog/${p.id}`}>
+              <div class="card__img"><Image src={p.data.cover} alt={p.data.coverAlt} widths={[400, 700]} sizes="(min-width:980px) 380px, 100vw" /></div>
+              <div class="card__body"><span class="tag">{p.data.category}</span><h3>{p.data.title}</h3><p>{p.data.excerpt}</p><span class="card__more">Lire l'article →</span></div>
+            </a>
+          ))}
+        </div>
+        <p class="center" style="margin-top:2rem"><a class="btn btn--dark" href="/blog">Tous les articles</a></p>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="narrow">
+      <div class="center"><p class="eyebrow">FAQ</p><h2>Questions fréquentes</h2></div>
+      <div style="margin-top:2rem"><Faq items={faq} /></div>
+      <p class="center" style="margin-top:2rem"><a href="/faq">Voir toutes les questions →</a></p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0"><div class="wrap"><CtaBand /></div></section>
+</Base>

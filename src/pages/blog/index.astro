@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PostCard from '../../components/PostCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { CATEGORIES } from '../../content.config';
+import { SITE } from '../../data/site';
+
+const all = (await getCollection('blog', (p) => !p.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
+const featured = all.find((p) => p.data.featured) ?? all[0];
+const rest = all.filter((p) => p !== featured);
+const fmt = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+const blogLd = { '@context': 'https://schema.org', '@type': 'Blog', name: 'Le blog Nefsy', url: `${SITE.url}/blog`, publisher: { '@id': `${SITE.url}/#organization` }, inLanguage: 'fr-FR' };
+---
+<Base title="Blog Omra, Médine et La Mecque : guides pratiques" description="Guides pratiques et explications religieuses sourcées sur la Omra, l'Omra Badal et les lieux à visiter à Médine et à La Mecque.">
+  <section class="page-hero page-hero--plain">
+    <div class="wrap hero__in">
+      <Breadcrumbs items={[{ name: 'Blog' }]} />
+      <p class="eyebrow">Le blog</p>
+      <h1>Comprendre, préparer, <em>accomplir</em></h1>
+      <p class="lead">Des guides pratiques et des explications sourcées pour préparer votre Omra, comprendre l'Omra Badal et visiter les lieux saints.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      {featured && (
+        <a class="featured reveal" href={`/blog/${featured.id}`}>
+          <Image src={featured.data.cover} alt={featured.data.coverAlt} widths={[640, 1000]} sizes="(min-width:860px) 55vw, 100vw" loading="eager" />
+          <div class="featured__body">
+            <span class="tag">À la une · {CATEGORIES[featured.data.category]}</span>
+            <h2>{featured.data.title}</h2>
+            <p>{featured.data.excerpt}</p>
+            <span class="meta" style="color:rgba(246,241,231,.7)"><time datetime={featured.data.date.toISOString()}>{fmt.format(featured.data.date)}</time></span>
+          </div>
+        </a>
+      )}
+      <div class="blog-tools">
+        <div class="chips" role="group" aria-label="Catégories">
+          <button class="chip is-on" type="button" data-filter="all">Tous</button>
+          {Object.entries(CATEGORIES).map(([k, v]) => <a class="chip" href={`/blog/categorie/${k}`}>{v}</a>)}
+        </div>
+        <label class="sr-only" for="q" style="position:absolute;left:-9999px">Rechercher un article</label>
+        <input id="q" class="search" type="search" placeholder="Rechercher un article…" autocomplete="off" />
+      </div>
+      <div class="grid grid--3" id="posts">{rest.map((p) => <PostCard post={p} />)}</div>
+      <p id="empty" class="center" hidden>Aucun article ne correspond à votre recherche.</p>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0"><div class="wrap"><CtaBand /></div></section>
+  <script type="application/ld+json" set:html={JSON.stringify(blogLd)} />
+  <script>
+    const q = document.getElementById('q') as HTMLInputElement;
+    const cards = [...document.querySelectorAll<HTMLElement>('#posts .card')];
+    const empty = document.getElementById('empty')!;
+    q.addEventListener('input', () => {
+      const v = q.value.trim().toLowerCase();
+      let n = 0;
+      cards.forEach((c) => { const ok = !v || (c.dataset.search ?? '').includes(v); c.hidden = !ok; if (ok) n++; });
+      empty.hidden = n > 0;
+    });
+  </script>
+</Base>

@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { FAQ_GLOBAL } from '../data/site';
+---
+<Base title="FAQ : réservation, guides, Omra Badal, annulation" description="Les réponses aux questions fréquentes sur Nefsy : réservation, paiement, prise en charge, Omra Badal, annulation et protection des données.">
+  <section class="page-hero page-hero--plain">
+    <div class="wrap hero__in">
+      <Breadcrumbs items={[{ name: 'FAQ' }]} />
+      <p class="eyebrow">FAQ</p>
+      <h1>Questions <em>fréquentes</em></h1>
+      <p class="lead">Tout ce qu'il faut savoir avant de réserver. Une autre question ? Écrivez-nous.</p>
+    </div>
+  </section>
+  <section class="section"><div class="narrow"><Faq items={FAQ_GLOBAL} /></div></section>
+  <section class="section" style="padding-top:0"><div class="wrap"><CtaBand title="Une question sans réponse ?" text="Notre équipe vous répond par WhatsApp ou via le formulaire de contact." /></div></section>
+</Base>

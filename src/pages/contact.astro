@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { SITE, whatsappLink } from '../data/site';
+const subject = Astro.url.searchParams.get('sujet') ?? '';
+const ld = { '@context': 'https://schema.org', '@type': 'ContactPage', name: 'Contact Nefsy', url: `${SITE.url}/contact`, about: { '@id': `${SITE.url}/#organization` } };
+---
+<Base title="Contact : écrire à Nefsy" description="Contactez l'équipe Nefsy par formulaire, e-mail ou WhatsApp pour une question sur la Omra, l'Omra Badal ou les visites guidées.">
+  <section class="page-hero page-hero--plain">
+    <div class="wrap hero__in">
+      <Breadcrumbs items={[{ name: 'Contact' }]} />
+      <p class="eyebrow">Contact</p>
+      <h1>Parlons de <em>votre projet</em></h1>
+      <p class="lead">Une question avant de réserver ? Un besoin particulier ? Nous vous répondons.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap split" style="align-items:start">
+      <div>
+        <h2 style="font-size:1.8rem">Écrivez-nous</h2>
+        <ContactForm formName="contact" />
+      </div>
+      <aside>
+        <h2 style="font-size:1.8rem">Autres moyens</h2>
+        <ul class="ticks">
+          <li><strong>WhatsApp</strong> : <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">{SITE.whatsappDisplay}</a></li>
+          <li><strong>E-mail</strong> : <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li><strong>Support application</strong> : <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a></li>
+          <li><strong>Siège</strong> : {SITE.address}</li>
+        </ul>
+        <div class="note"><strong>Réservation</strong><p>Les réservations se font dans l'application Nefsy (App Store, Google Play).</p></div>
+      </aside>
+    </div>
+  </section>
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</Base>

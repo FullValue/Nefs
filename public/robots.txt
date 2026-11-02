@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /payment-status
+Disallow: /merci
+
+Sitemap: https://nefsy.fr/sitemap-index.xml

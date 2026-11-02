@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { NAV, SITE } from '../data/site';
+const path = Astro.url.pathname;
+const isCur = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(href + '/'));
+---
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="header">
+  <div class="wrap header__in">
+    <a class="header__logo" href="/" aria-label="Nefsy, accueil">
+      <Image src={logo} alt="Nefsy" height={46} width={138} loading="eager" />
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      {NAV.map((item) =>
+        item.children ? (
+          <details class="dd">
+            <summary>{item.label}</summary>
+            <div class="dd__panel">
+              <a href={item.href}><strong>Toutes les prestations</strong></a>
+              {item.children.map((c) => <a href={c.href} aria-current={isCur(c.href) ? 'page' : undefined}>{c.label}</a>)}
+            </div>
+          </details>
+        ) : (
+          <a href={item.href} aria-current={isCur(item.href) ? 'page' : undefined}>{item.label}</a>
+        )
+      )}
+    </nav>
+    <a class="btn btn--dark btn--sm header__cta" href={SITE.appStore} target="_blank" rel="noopener noreferrer">Télécharger l'app</a>
+    <button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="drawer" data-open>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="drawer__top">
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--gold-bright)">Nefsy</span>
+    <button class="burger" type="button" aria-label="Fermer le menu" data-close style="color:var(--sand);border-color:var(--line-light)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer__links" aria-label="Navigation mobile">
+    {NAV.map((item) =>
+      item.children ? (
+        <>
+          <a class="drawer__sub-title" href={item.href}>{item.label}</a>
+          <div class="drawer__sub">{item.children.map((c) => <a href={c.href}>{c.label}</a>)}</div>
+        </>
+      ) : (
+        <a href={item.href}>{item.label}</a>
+      )
+    )}
+  </nav>
+  <div class="actions">
+    <a class="btn btn--gold" href={SITE.appStore} target="_blank" rel="noopener noreferrer">App Store</a>
+    <a class="btn btn--ghost" href={SITE.playStore} target="_blank" rel="noopener noreferrer">Google Play</a>
+  </div>
+</div>
+<script>
+  const drawer = document.getElementById('drawer')!;
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-open]')!;
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-close]')!;
+  const set = (v: boolean) => {
+    drawer.classList.toggle('is-open', v);
+    document.body.classList.toggle('no-scroll', v);
+    openBtn.setAttribute('aria-expanded', String(v));
+    (v ? closeBtn : openBtn).focus();
+  };
+  openBtn.addEventListener('click', () => set(true));
+  closeBtn.addEventListener('click', () => set(false));
+  drawer.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { set(false); document.querySelectorAll('details.dd[open]').forEach((d) => d.removeAttribute('open')); } });
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('details.dd[open]').forEach((d) => { if (!d.contains(e.target as Node)) d.removeAttribute('open'); });
+  });
+</script>

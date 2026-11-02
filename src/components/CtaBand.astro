@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+import StoreButtons from './StoreButtons.astro';
+import defaultBg from '../assets/visite-medine.jpg';
+interface Props { title?: string; text?: string; waText?: string; image?: ImageMetadata }
+const {
+  title = 'Prêt à vivre votre Omra sereinement ?',
+  text = "Téléchargez l'application Nefsy, choisissez votre prestation puis votre guide. Une question avant ? Écrivez-nous sur WhatsApp.",
+  waText,
+  image = defaultBg,
+} = Astro.props;
+---
+<div class="cta-band cta-band--img reveal">
+  <div class="cta-band__bg"><Image src={image} alt="" widths={[640, 1100]} sizes="(min-width:1180px) 1180px, 100vw" loading="lazy" /></div>
+  <div>
+    <h2>{title}</h2>
+    <p>{text}</p>
+  </div>
+  <StoreButtons whatsapp waText={waText} />
+</div>

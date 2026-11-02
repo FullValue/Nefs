@@ -1,0 +1,74 @@
+---
+import { SITE } from '../data/site';
+interface Props { subject?: string; formName?: string; deletion?: boolean }
+const { subject = '', formName = 'contact', deletion = false } = Astro.props;
+const subjects = deletion
+  ? []
+  : [
+      ['omra', 'Accompagnement Omra'],
+      ['badal', 'Omra Badal'],
+      ['mecque', 'Visite de La Mecque'],
+      ['medine', 'Visite de Médine / Masjid Nabawi'],
+      ['guide', 'Devenir guide partenaire'],
+      ['autre', 'Autre demande'],
+    ];
+---
+<form class="form" name={formName} method="POST" action="/merci" data-netlify="true" netlify-honeypot="website" data-endpoint={SITE.formEndpoint} data-mailto={deletion ? SITE.supportEmail : SITE.email}>
+  <input type="hidden" name="form-name" value={formName} />
+  <div class="field field--hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+  <div class="row2">
+    <div class="field"><label for={`${formName}-prenom`}>Prénom</label><input id={`${formName}-prenom`} name="prenom" required autocomplete="given-name" /></div>
+    <div class="field"><label for={`${formName}-nom`}>Nom</label><input id={`${formName}-nom`} name="nom" required autocomplete="family-name" /></div>
+  </div>
+  <div class="field"><label for={`${formName}-email`}>E-mail{deletion ? ' du compte Nefsy' : ''}</label><input id={`${formName}-email`} name="email" type="email" required autocomplete="email" /></div>
+  {deletion ? (
+    <div class="field">
+      <label for={`${formName}-type`}>Type de compte</label>
+      <select id={`${formName}-type`} name="type_compte" required>
+        <option value="">Sélectionnez</option><option>Pèlerin</option><option>Guide</option><option>Autre</option>
+      </select>
+    </div>
+  ) : (
+    <div class="field">
+      <label for={`${formName}-sujet`}>Sujet</label>
+      <select id={`${formName}-sujet`} name="sujet" required>
+        <option value="">Sélectionnez un sujet</option>
+        {subjects.map(([v, l]) => <option value={l} selected={v === subject}>{l}</option>)}
+      </select>
+    </div>
+  )}
+  <div class="field"><label for={`${formName}-message`}>Message</label><textarea id={`${formName}-message`} name="message" required placeholder={deletion ? 'Précisez votre demande de suppression de compte.' : 'Comment pouvons-nous vous aider ?'}></textarea></div>
+  <p class="hint">Vos informations servent uniquement à répondre à votre demande. Voir la <a href="/politiquedeconfidentialite">politique de confidentialité</a>.</p>
+  <button class="btn btn--dark" type="submit">{deletion ? 'Envoyer la demande de suppression' : 'Envoyer le message'}</button>
+  <div class="form__status" role="status" aria-live="polite"></div>
+</form>
+<script>
+  document.querySelectorAll<HTMLFormElement>('form.form[data-netlify]').forEach((form) => {
+    const status = form.querySelector<HTMLElement>('.form__status')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
+      const data = new FormData(form);
+      if (data.get('website')) return;
+      btn.disabled = true;
+      status.className = 'form__status';
+      const endpoint = form.dataset.endpoint;
+      try {
+        const res = endpoint
+          ? await fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: data })
+          : await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data as unknown as Record<string, string>).toString() });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.textContent = 'Merci, votre message a bien été envoyé. Nous vous répondons rapidement.';
+        status.classList.add('ok');
+      } catch {
+        const body = encodeURIComponent(`${data.get('message') ?? ''}\n\n${data.get('prenom') ?? ''} ${data.get('nom') ?? ''} (${data.get('email') ?? ''})`);
+        const subj = encodeURIComponent(String(data.get('sujet') ?? data.get('type_compte') ?? 'Demande via le site Nefsy'));
+        status.innerHTML = `L'envoi automatique n'a pas abouti. <a href="mailto:${form.dataset.mailto}?subject=${subj}&body=${body}">Envoyer par e-mail</a> ou écrire sur WhatsApp.`;
+        status.classList.add('err');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  });
+</script>

@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import PostCard from '../../../components/PostCard.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { CATEGORIES } from '../../../content.config';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog', (p) => !p.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
+  return Object.keys(CATEGORIES)
+    .filter((k) => posts.some((p) => p.data.category === k))
+    .map((k) => ({ params: { cat: k }, props: { posts: posts.filter((p) => p.data.category === k) } }));
+}
+const { cat } = Astro.params as { cat: keyof typeof CATEGORIES };
+const { posts } = Astro.props;
+const label = CATEGORIES[cat];
+---
+<Base title={`Articles ${label} : guides et explications`} description={`Tous les articles Nefsy sur le thème « ${label} » : guides pratiques et explications sourcées.`}>
+  <section class="page-hero page-hero--plain">
+    <div class="wrap hero__in">
+      <Breadcrumbs items={[{ name: 'Blog', href: '/blog' }, { name: label }]} />
+      <p class="eyebrow">Catégorie</p>
+      <h1>{label}</h1>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="chips" style="margin-bottom:2rem">
+        <a class="chip" href="/blog">Tous</a>
+        {Object.entries(CATEGORIES).map(([k, v]) => <a class="chip" href={`/blog/categorie/${k}`} aria-current={k === cat ? 'page' : undefined}>{v}</a>)}
+      </div>
+      <div class="grid grid--3">{posts.map((p) => <PostCard post={p} />)}</div>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0"><div class="wrap"><CtaBand /></div></section>
+</Base>

@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { CATEGORIES } from '../content.config';
+interface Props { post: CollectionEntry<'blog'> }
+const { post } = Astro.props;
+const d = post.data;
+const fmt = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<a class="card reveal" href={`/blog/${post.id}`} data-cat={d.category} data-search={`${d.title} ${d.excerpt}`.toLowerCase()}>
+  <div class="card__img"><Image src={d.cover} alt={d.coverAlt} widths={[400, 700]} sizes="(min-width:980px) 380px, 100vw" /></div>
+  <div class="card__body">
+    <span class="tag">{CATEGORIES[d.category]}</span>
+    <h3>{d.title}</h3>
+    <p>{d.excerpt}</p>
+    <span class="meta"><time datetime={d.date.toISOString()}>{fmt.format(d.date)}</time>{d.readingTime ? ` · ${d.readingTime} min de lecture` : ''}</span>
+  </div>
+</a>

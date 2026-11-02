@@ -1,0 +1,91 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import PostCard from '../../components/PostCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { CATEGORIES } from '../../content.config';
+import { SITE, SERVICES } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => !p.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}
+const { post, posts } = Astro.props;
+const d = post.data;
+const { Content, headings } = await render(post);
+const toc = headings.filter((h) => h.depth === 2);
+const fmt = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+const url = `${SITE.url}/blog/${post.id}`;
+const service = SERVICES.find((s) => s.key === d.cta)!;
+const explicit = d.related.map((id) => posts.find((p) => p.id === id)).filter(Boolean) as typeof posts;
+const fallback = posts.filter((p) => p.id !== post.id && p.data.category === d.category && !explicit.includes(p));
+const related = [...explicit, ...fallback, ...posts.filter((p) => p.id !== post.id && !explicit.includes(p) && !fallback.includes(p))].slice(0, 3);
+const coverImg = await getImage({ src: d.cover, width: 1200, format: 'jpg' });
+const article = {
+  '@type': 'Article',
+  '@id': `${url}#article`,
+  headline: d.title,
+  description: d.description,
+  datePublished: d.date.toISOString(),
+  dateModified: (d.updated ?? d.date).toISOString(),
+  inLanguage: 'fr-FR',
+  mainEntityOfPage: url,
+  author: { '@id': `${SITE.url}/#organization` },
+  publisher: { '@id': `${SITE.url}/#organization` },
+  image: new URL(coverImg.src, SITE.url).toString(),
+};
+---
+<Base title={d.seoTitle ?? d.title} description={d.description} image={d.cover} type="article" published={d.date} modified={d.updated ?? d.date} schema={[article]}>
+  <article>
+    <header class="section" style="padding-bottom:0">
+      <div class="narrow article-head">
+        <Breadcrumbs dark items={[{ name: 'Blog', href: '/blog' }, { name: CATEGORIES[d.category], href: `/blog/categorie/${d.category}` }, { name: d.title }]} />
+        <a class="tag" href={`/blog/categorie/${d.category}`} style="text-decoration:none">{CATEGORIES[d.category]}</a>
+        <h1>{d.title}</h1>
+        <p class="lead">{d.excerpt}</p>
+        <p class="meta">
+          Publié le <time datetime={d.date.toISOString()}>{fmt.format(d.date)}</time>
+          {d.updated && <> · mis à jour le <time datetime={d.updated.toISOString()}>{fmt.format(d.updated)}</time></>}
+          {d.readingTime && ` · ${d.readingTime} min de lecture`}
+        </p>
+      </div>
+      <div class="wrap" style="max-width:980px"><div class="cover"><Image src={d.cover} alt={d.coverAlt} widths={[640, 1000, 1400]} sizes="(min-width:1000px) 980px, 100vw" loading="eager" fetchpriority="high" /></div></div>
+    </header>
+
+    <div class="section" style="padding-top:1rem">
+      <div class="narrow">
+        {toc.length > 2 && (
+          <nav class="toc" aria-label="Sommaire"><strong>Sommaire</strong>
+            <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </nav>
+        )}
+        <div class="prose"><Content /></div>
+
+        <div class="cta-band cta-band--img" style="margin-top:3rem">
+          <div class="cta-band__bg"><Image src={d.cover} alt="" widths={[640, 900]} sizes="760px" loading="lazy" /></div>
+          <div><h2>{service.title}</h2><p>{service.short}</p></div>
+          <div class="actions"><a class="btn btn--gold" href={service.path}>Découvrir la prestation</a></div>
+        </div>
+
+        {d.faq.length > 0 && (
+          <section style="margin-top:3.5rem"><h2>Questions fréquentes</h2><Faq items={d.faq} /></section>
+        )}
+
+        <p class="note" style="margin-top:3rem"><strong>Information</strong>Cet article est informatif et ne remplace pas l'avis d'un savant reconnu. Pour toute situation particulière, demandez conseil.</p>
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="section section--sand">
+      <div class="wrap">
+        <h2 class="center">Articles associés</h2>
+        <div class="grid grid--3" style="margin-top:2.5rem">{related.map((p) => <PostCard post={p} />)}</div>
+      </div>
+    </section>
+  )}
+  <section class="section"><div class="wrap"><CtaBand image={d.cover} /></div></section>
+</Base>

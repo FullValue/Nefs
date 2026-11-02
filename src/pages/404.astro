@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { SERVICES } from '../data/site';
+---
+<Base title="Page introuvable" description="Cette page n'existe pas ou a été déplacée." noindex>
+  <section class="section"><div class="narrow center">
+    <p class="eyebrow">Erreur 404</p>
+    <h1 style="font-size:clamp(2rem,5vw,3rem)">Cette page est introuvable</h1>
+    <p class="lead">Elle a peut-être été déplacée. Voici où aller :</p>
+    <div class="actions" style="justify-content:center">
+      <a class="btn btn--dark" href="/">Accueil</a>
+      {SERVICES.slice(0, 2).map((s) => <a class="btn btn--ghost" style="color:var(--ink)" href={s.path}>{s.nav}</a>)}
+      <a class="btn btn--ghost" style="color:var(--ink)" href="/blog">Blog</a>
+    </div>
+  </div></section>
+</Base>

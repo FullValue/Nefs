@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import guides from '../assets/guides-nefsy.jpeg';
+---
+<Base title="À propos de Nefsy : guides pour La Mecque et Médine" description="Nefsy est une application qui met en relation pèlerins et guides religieux. Découvrez notre mission, nos engagements éthiques et notre manière de travailler." image={guides}>
+  <section class="page-hero page-hero--plain">
+    <div class="wrap hero__in">
+      <Breadcrumbs items={[{ name: 'À propos' }]} />
+      <p class="eyebrow">À propos</p>
+      <h1>La confiance comme <em>fondation</em></h1>
+      <p class="lead">Nefsy est née d'un constat simple : à La Mecque et à Médine, trouver un guide fiable, sérieux et respectueux ne devrait pas être une loterie.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap split">
+      <div class="split__img reveal"><Image src={guides} alt="Guides Nefsy en gilet officiel" widths={[500, 900]} sizes="(min-width:900px) 560px, 100vw" /></div>
+      <div class="reveal">
+        <h2>Notre mission</h2>
+        <p>Nefsy est une plateforme de mise en relation entre pèlerins et guides pour des prestations religieuses : la Omra, l'Omra Badal et les visites guidées à La Mecque et à Médine.</p>
+        <p>Nous n'organisons ni les vols, ni les visas, ni l'hébergement : nous nous concentrons sur l'accompagnement sur place, dans un cadre clair et transparent.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section section--sand pattern">
+    <div class="wrap">
+      <div class="center"><p class="eyebrow">Nos engagements</p><h2>Ce que chaque guide s'engage à respecter</h2></div>
+      <div class="grid grid--3" style="margin-top:3rem">
+        <div class="card reveal"><div class="card__body"><h3>Fidélité à la Sounna</h3><p>Enseigner uniquement ce qui est établi par le Coran et la Sounna authentique, en évitant les innovations et pratiques infondées.</p></div></div>
+        <div class="card reveal"><div class="card__body"><h3>Amānah</h3><p>Aucun détournement de clientèle, aucun prêt de compte, aucune pression financière ou émotionnelle sur les pèlerins.</p></div></div>
+        <div class="card reveal"><div class="card__body"><h3>Sérieux et ponctualité</h3><p>Gilet officiel, ponctualité stricte, prise en charge complète jusqu'à la fin de la prestation, y compris pour les personnes à mobilité réduite.</p></div></div>
+      </div>
+      <p class="center" style="margin-top:2rem"><a class="btn btn--dark" href="/chartesethiques">Lire les chartes complètes</a></p>
+    </div>
+  </section>
+  <section class="section" style="padding-top:0"><div class="wrap"><CtaBand /></div></section>
+</Base>

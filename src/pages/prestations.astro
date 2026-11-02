@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SERVICES, SITE } from '../data/site';
+import { CONTENT } from '../data/services';
+const list = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: SERVICES.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.title, url: `${SITE.url}${s.path}` })),
+};
+---
+<Base title="Nos prestations : Omra, Omra Badal, visites guidées" description="Découvrez les prestations Nefsy : accompagnement pour la Omra, Omra Badal, visites guidées de La Mecque, de Médine et du Masjid Nabawi.">
+  <section class="page-hero page-hero--plain">
+    <div class="wrap hero__in">
+      <Breadcrumbs items={[{ name: 'Prestations' }]} />
+      <p class="eyebrow">Prestations</p>
+      <h1>Un guide pour chaque <em>étape</em> de votre séjour</h1>
+      <p class="lead">Toutes les prestations se réservent dans l'application Nefsy. Les tarifs sont affichés au moment de la réservation.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid grid--2">
+      {SERVICES.map((s) => (
+        <a class="card reveal" href={s.path}>
+          <div class="card__img"><Image src={CONTENT[s.key].splitImg} alt={CONTENT[s.key].splitAlt} widths={[500, 800]} sizes="(min-width:720px) 560px, 100vw" /></div>
+          <div class="card__body"><h2 style="font-size:1.6rem;margin:0">{s.title}</h2><p>{s.short}</p><span class="card__more">Voir la prestation →</span></div>
+        </a>
+      ))}
+    </div>
+  </section>
+  <section class="section" style="padding-top:0"><div class="wrap"><CtaBand /></div></section>
+  <script type="application/ld+json" set:html={JSON.stringify(list)} />
+</Base>

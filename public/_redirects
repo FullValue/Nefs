@@ -1,1 +1,10 @@
-/* /index.html 200
+# Anciennes URLs / variantes (le site précédent acceptait plusieurs graphies)
+/cgvu                           /CGVU                         301
+/politiquedeconfidentialité     /politiquedeconfidentialite   301
+/deleteaccount                  /delete-account               301
+/suppressioncompte              /delete-account               301
+/suppression-de-compte          /delete-account               301
+/politiquedannulation/          /politiquedannulation         301
+/mentions-legales               /mentionslegales              301
+/chartes-ethiques               /chartesethiques              301
+/visites-guidees                /prestations                  301

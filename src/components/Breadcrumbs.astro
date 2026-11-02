@@ -1,0 +1,24 @@
+---
+import { SITE } from '../data/site';
+interface Props { items: { name: string; href?: string }[]; dark?: boolean }
+const { items, dark = false } = Astro.props;
+const all = [{ name: 'Accueil', href: '/' }, ...items];
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: all.map((it, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.name,
+    ...(it.href ? { item: new URL(it.href, SITE.url).toString() } : {}),
+  })),
+};
+---
+<nav class={`crumbs ${dark ? 'crumbs--dark' : ''}`} aria-label="Fil d'Ariane">
+  <ol>
+    {all.map((it, i) => (
+      <li>{it.href && i < all.length - 1 ? <a href={it.href}>{it.name}</a> : <span aria-current="page">{it.name}</span>}</li>
+    ))}
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(ld)} />

@@ -1,0 +1,58 @@
+---
+import { SITE } from '../data/site';
+import ogDefault from '../assets/guides-nefsy.jpeg';
+import { getImage } from 'astro:assets';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  image?: ImageMetadata;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  published?: Date;
+  modified?: Date;
+  schema?: Record<string, unknown>[];
+}
+const { title, description, image, type = 'website', noindex = false, published, modified, schema = [] } = Astro.props;
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const canonical = new URL(pathname, SITE.url).toString();
+const og = await getImage({ src: image ?? ogDefault, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
+const ogUrl = new URL(og.src, SITE.url).toString();
+const fullTitle = pathname === '/' ? title : `${title} | ${SITE.name}`;
+
+const organization = {
+  '@type': 'Organization',
+  '@id': `${SITE.url}/#organization`,
+  name: SITE.name,
+  legalName: SITE.legalName,
+  url: SITE.url,
+  logo: new URL('/favicons/icon-512.png', SITE.url).toString(),
+  email: SITE.email,
+  sameAs: [SITE.instagram, SITE.tiktok],
+  address: { '@type': 'PostalAddress', streetAddress: '78 Avenue des Champs Élysées', postalCode: '75008', addressLocality: 'Paris', addressCountry: 'FR' },
+  contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: SITE.supportEmail, availableLanguage: ['fr'] }],
+};
+const website = { '@type': 'WebSite', '@id': `${SITE.url}/#website`, url: SITE.url, name: SITE.name, inLanguage: 'fr-FR', publisher: { '@id': `${SITE.url}/#organization` } };
+const graph = { '@context': 'https://schema.org', '@graph': [organization, website, ...schema] };
+---
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:type" content={type} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+{published && <meta property="article:published_time" content={published.toISOString()} />}
+{modified && <meta property="article:modified_time" content={modified.toISOString()} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogUrl} />
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />

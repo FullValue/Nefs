@@ -1,0 +1,10 @@
+---
+import Legal from '../layouts/Legal.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { SITE } from '../data/site';
+---
+<Legal id="delete" h1="Demande de suppression de compte" title="Suppression de compte Nefsy" description="Demandez la suppression de votre compte Nefsy et de vos données associées. Délai de traitement : 7 jours ouvrés.">
+  <p>Utilisez ce formulaire pour demander la suppression de votre compte Nefsy et de vos données associées.</p>
+  <p>Vous pouvez aussi nous contacter directement à <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>. Délai de traitement : 7 jours ouvrés.</p>
+  <ContactForm formName="suppression-compte" deletion />
+</Legal>

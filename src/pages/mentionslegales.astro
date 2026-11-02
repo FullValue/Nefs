@@ -1,0 +1,11 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { SITE } from '../data/site';
+---
+<Legal id="mentions" h1="Mentions légales" title="Mentions légales" description="Mentions légales du site et de l'application Nefsy, éditée par la société SMHRJU.">
+  <p><strong>L'application est éditée par la société {SITE.legalName}.</strong></p>
+  <p><strong>Siège social :</strong> {SITE.address}.</p>
+  <p><strong>Numéro d'immatriculation :</strong> {SITE.rcs} (RCS Paris).</p>
+  <p><strong>Contact :</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  <p><strong>Propriété intellectuelle :</strong> L'ensemble des contenus (textes, logos, interfaces, vidéos) est la propriété exclusive de {SITE.legalName}. Toute reproduction ou exploitation non autorisée est strictement interdite.</p>
+</Legal>

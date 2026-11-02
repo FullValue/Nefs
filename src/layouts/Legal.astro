@@ -1,0 +1,33 @@
+---
+import Base from './Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { LEGAL } from '../data/site';
+interface Props { title: string; description: string; h1: string; id: string }
+const { title, description, h1, id } = Astro.props;
+---
+<Base title={title} description={description}>
+  <section class="section" style="padding-top:2.5rem">
+    <div class="wrap">
+      <Breadcrumbs dark items={[{ name: 'Informations légales' }, { name: h1 }]} />
+      <div class="split" style="align-items:start;gap:3rem;grid-template-columns:1fr">
+        <div style="display:grid;gap:3rem" class="legal-grid">
+          <nav aria-label="Documents légaux" class="legal-nav">
+            <strong style="font-family:var(--font-display);font-size:1.3rem">Documents légaux</strong>
+            <ul>{LEGAL.map((l) => <li><a href={l.href} aria-current={l.id === id ? 'page' : undefined}>{l.title}</a></li>)}</ul>
+          </nav>
+          <article class="prose">
+            <h1 style="font-size:clamp(2rem,4vw,3rem)">{h1}</h1>
+            <slot />
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .legal-grid { grid-template-columns: 1fr; }
+  .legal-nav ul { list-style: none; padding: 0; margin: .8rem 0 0; display: grid; gap: .3rem; }
+  .legal-nav a { display: block; padding: .6rem .9rem; border-radius: 10px; text-decoration: none; font-size: .95rem; }
+  .legal-nav a:hover, .legal-nav a[aria-current] { background: var(--sand); color: var(--gold-deep); font-weight: 600; }
+  @media (min-width: 900px) { .legal-grid { grid-template-columns: 280px 1fr; } .legal-nav { position: sticky; top: 100px; align-self: start; } }
+</style>
