@@ -27,7 +27,7 @@ Front-matter d'un article : voir `src/content.config.ts` (titre ≤ 70 car., des
 
 URLs propres, title/description par page, canonical, Open Graph, sitemap (`/sitemap-index.xml`), robots.txt, fil d'Ariane, JSON-LD (Organization, WebSite, Service, Article, BreadcrumbList, FAQPage, ItemList, Blog, ContactPage), images WebP via `astro:assets`, polices auto-hébergées, 1 seul H1 par page, JavaScript minimal.
 
-Les anciennes URLs légales sont conservées (`/CGVU`, `/mentionslegales`, `/politiquedeconfidentialite`, `/politiquedannulation`, `/chartesethiques`, `/delete-account`) car elles sont probablement référencées dans les stores. Les variantes sont redirigées par `public/_redirects`.
+Les anciennes URLs légales sont conservées (`/CGVU`, `/mentionslegales`, `/politiquedeconfidentialite`, `/politiquedannulation`, `/chartesethiques`, `/delete-account`) car elles sont probablement référencées dans les stores. Les variantes sont redirigées par `vercel.json` (hébergement actuel, avec `cleanUrls` pour servir `/omra` au lieu de `/omra.html`) et par `public/_redirects` (si le site passe un jour sur Netlify).
 
 Stratégie éditoriale et base documentaire : `docs/seo-base-editoriale.md`.
 

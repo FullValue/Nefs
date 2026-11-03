@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import screen1 from '../assets/app-1.jpeg';
 import screen2 from '../assets/app-2.jpeg';
 import screen3 from '../assets/app-3.jpeg';
+import backdrop from '../assets/visite-medine.jpg';
 import { SITE } from '../data/site';
 
 const sparkles = [
@@ -14,7 +15,19 @@ const sparkles = [
   { top: '40%', left: '80%', size: 16, delay: 0.8 },
 ];
 ---
-<section class="oh pattern">
+<section class="oh">
+  <div class="oh__photo" aria-hidden="true"><Image src={backdrop} alt="" widths={[800, 1400, 2000]} sizes="100vw" loading="eager" /></div>
+  <div class="oh__glow" aria-hidden="true"></div>
+  <div class="oh__pattern pattern" aria-hidden="true"></div>
+  <svg class="rosace" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+    <g stroke="currentColor" stroke-width="1">
+      <circle cx="200" cy="200" r="196" />
+      <circle cx="200" cy="200" r="150" stroke-dasharray="2 6" />
+      {[0, 22.5, 45, 67.5].map((a) => <rect x="80" y="80" width="240" height="240" transform={`rotate(${a} 200 200)`} />)}
+      {[0, 45].map((a) => <rect x="128" y="128" width="144" height="144" transform={`rotate(${a} 200 200)`} />)}
+      <circle cx="200" cy="200" r="60" />
+    </g>
+  </svg>
   <div class="oh__sparkles" aria-hidden="true">
     {sparkles.map((p) => (
       <span class="spark" style={`top:${p.top};left:${p.left};width:${p.size}px;height:${p.size}px;animation-delay:${p.delay}s`}>
@@ -54,7 +67,14 @@ const sparkles = [
 </section>
 
 <style>
-  .oh { position: relative; overflow: hidden; text-align: center; background-color: #fff; padding-top: clamp(4rem, 8vw, 7rem); }
+  .oh { position: relative; isolation: isolate; overflow: hidden; text-align: center; background: linear-gradient(180deg, #fbf6ea 0%, #fffdf8 55%, #fff 100%); padding-top: clamp(4rem, 8vw, 7rem); }
+  /* Fond : photo de Médine très estompée, halo doré, motif et rosace qui tourne lentement */
+  .oh__photo { position: absolute; inset: 0 0 35% 0; z-index: -3; opacity: .2; filter: sepia(.35) saturate(.8); -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent); mask-image: linear-gradient(180deg, #000 20%, transparent); }
+  .oh__photo :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+  .oh__glow { position: absolute; z-index: -2; inset: 0; background: radial-gradient(60% 45% at 50% 30%, rgba(255,253,248,.92), rgba(255,253,248,.55) 60%, transparent), radial-gradient(40% 35% at 15% 85%, rgba(208,166,74,.16), transparent), radial-gradient(40% 35% at 85% 70%, rgba(208,166,74,.14), transparent); }
+  .oh__pattern { position: absolute; inset: 0; z-index: -2; opacity: .55; -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, transparent 30%, #000); mask-image: radial-gradient(70% 60% at 50% 40%, transparent 30%, #000); }
+  .rosace { position: absolute; z-index: -1; left: 50%; bottom: -260px; width: min(980px, 190vw); height: auto; color: var(--gold); opacity: .16; transform: translateX(-50%); animation: rosace 140s linear infinite; pointer-events: none; }
+  @keyframes rosace { to { transform: translateX(-50%) rotate(360deg); } }
   .oh__in { position: relative; z-index: 2; width: min(100% - 2.5rem, 880px); margin-inline: auto; }
   .oh__badge { display: inline-block; background: rgba(179, 134, 42, .1); color: var(--gold-deep); padding: .5rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: .9rem; margin-bottom: 1.4rem; }
   .oh h1 { font-size: clamp(2.3rem, 6vw, 4.6rem); line-height: 1.08; margin-bottom: 1.2rem; }
@@ -106,5 +126,5 @@ const sparkles = [
     .phone--l { left: 10%; } .phone--r { right: 10%; }
     .fcard--a { left: 5%; } .fcard--b { right: 5%; } .fcard--c { left: 2%; }
   }
-  @media (prefers-reduced-motion: reduce) { .spark { animation: none; opacity: .5; } }
+  @media (prefers-reduced-motion: reduce) { .spark, .rosace { animation: none; } .spark { opacity: .5; } }
 </style>
